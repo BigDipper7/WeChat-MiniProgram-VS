@@ -9,7 +9,9 @@ Page({
     disabled: false,
     plain: false,
     loading: false,
-    imgUrl: '',
+    imgUrl: 'http://tvax4.sinaimg.cn/mw600/5423373agy1ga881jphvij20m80rsk51.jpg',
+    imgMode: 'aspectFit',
+    imgLazyLoadMode: true,
   },
   //事件处理函数
   bindViewTap: function() {
@@ -23,6 +25,14 @@ Page({
       loading: !this.data.loading
     });
     console.log(this.data)
+  },
+  fn_img_err: function (e) {
+    console.error('image发生error事件，携带值为', e.detail.errMsg)
+  },
+  fn_img_loadfinish: function () {
+    this.setData({
+      loading: false
+    });
   },
   onLoad: function () {
     console.log('onLoad...')

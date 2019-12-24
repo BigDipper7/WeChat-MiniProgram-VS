@@ -7,10 +7,10 @@
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
   </view>
-  <view>
+  <view class="button_container">
     <button type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="fn_roll"> 来一张无聊图吧 </button>
   </view>
-  <view>
-    <image style="width: 200px; height: 200px; background-color: #eeeeee;" mode="{{item.mode}}" src="{{src}}"></image>
+  <view class="image_container">
+    <image style="width: 100%; height: 200px; background-color: #eeeeee;" mode="{{imgMode}}" lazy-load="{{imgLazyLoadMode}}" src="{{imgUrl}}" binderror="fn_img_err" bindload="fn_img_loadfinish"></image>
   </view>
 </view>

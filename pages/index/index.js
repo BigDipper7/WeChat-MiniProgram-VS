@@ -31,14 +31,6 @@ Page({
     });
     console.log(this.data);
 
-    // TODO: to finish...
-    // simulate network time cost...
-    let m = 0;
-    for(let i=0; i<300000000; i++) {
-      m+=i;
-    }
-    // simulation finish..
-
     const db = wx.cloud.database();
     db.collection('images').get().then(res => {
       // res.data 是一个包含集合中有权限访问的所有记录的数据，不超过 20 条
@@ -48,7 +40,7 @@ Page({
       const cur_img_url = _data[cur_idx]['url']
 
       this.setData({
-        // loading: false, //等图片加载完，就去掉loading
+        loading: false, //等图片加载完，就去掉loading
         imgUrl: cur_img_url,
         // allImgs: this.data.allImgs.concat(cur_img_url) // 图片加载成功的时候，就可以加入到图片列表啦
       });
@@ -92,6 +84,25 @@ Page({
       })
       console.log(userInfo)
     })
+
+    // // 查看是否授权
+    // wx.getSetting({
+    //   success(res) {
+    //     if (res.authSetting['scope.userInfo']) {
+    //       // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+    //       wx.getUserInfo({
+    //         success: function (res) {
+    //           console.log(res.userInfo)
+    //           //更新数据
+    //           that.setData({
+    //             userInfo: res.userInfo
+    //           })
+    //           console.log('onLoad userInfo:', userInfo)
+    //         }
+    //       })
+    //     }
+    //   }
+    // })
 
     // 初始化云平台
     // const cloud = require('wx-server-sdk')

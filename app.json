@@ -4,7 +4,7 @@
     "pages/logs/logs"
   ],
   "window": {
-    "backgroundTextStyle":"dark",
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#e64380",
     "navigationBarTitleText": "测试展示用代码",
     "navigationBarTextStyle": "white",
@@ -15,6 +15,7 @@
     "selectedColor": "#09bb07",
     "backgroundColor": "#fff",
     "borderStyle": "black",
+    "position": "top",
     "list": [
       {
         "pagePath": "pages/index/index",
@@ -30,5 +31,6 @@
     "request": 10000,
     "downloadFile": 10000
   },
-  "debug": false
+  "debug": true,
+  "sitemapLocation": "sitemap.json"
 }

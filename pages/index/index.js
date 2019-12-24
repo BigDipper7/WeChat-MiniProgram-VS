@@ -4,7 +4,12 @@ var app = getApp()
 Page({
   data: {
     motto: '今天是个好天气~',
-    userInfo: {}
+    userInfo: {},
+    primarySize: 'default',
+    disabled: false,
+    plain: false,
+    loading: false,
+    imgUrl: '',
   },
   //事件处理函数
   bindViewTap: function() {
@@ -12,6 +17,12 @@ Page({
       // url: '../logs/logs'
       url: 'logs/logs.js'
     })
+  },
+  fn_roll: function() {
+    this.setData({
+      loading: !this.data.loading
+    });
+    console.log(this.data)
   },
   onLoad: function () {
     console.log('onLoad...')

@@ -22,4 +22,5 @@
 
 .usermotto {
   margin-top: 20px;
+  visibility: hidden;
 }

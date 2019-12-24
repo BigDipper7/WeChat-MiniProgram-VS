@@ -1,4 +1,7 @@
 //index.js
+// import ...
+var util = require('../../utils/util.js')
+
 //获取应用实例
 var app = getApp()
 Page({
@@ -9,7 +12,7 @@ Page({
     disabled: false,
     plain: false,
     loading: false,
-    imgUrl: 'http://tvax4.sinaimg.cn/mw600/5423373agy1ga881jphvij20m80rsk51.jpg',
+    imgUrl: '',
     imgMode: 'aspectFit',
     imgLazyLoadMode: true,
     allImgs: [],
@@ -36,20 +39,33 @@ Page({
     }
     // simulation finish..
 
-    this.setData({
-      loading: false,
-      allImgs: this.data.allImgs.concat(this.data.imgUrl)
+    const db = wx.cloud.database();
+    db.collection('images').get().then(res => {
+      // res.data 是一个包含集合中有权限访问的所有记录的数据，不超过 20 条
+      console.log('all images:', res.data);
+      const _data = res.data
+      const cur_idx = util.getRndInt_PARTIAL(0, _data.length)
+      const cur_img_url = _data[cur_idx]['url']
+
+      this.setData({
+        // loading: false, //等图片加载完，就去掉loading
+        imgUrl: cur_img_url,
+        // allImgs: this.data.allImgs.concat(cur_img_url) // 图片加载成功的时候，就可以加入到图片列表啦
+      });
     });
   },
   // 图片加载错误绑定函数
   fn_img_err: function (e) {
     console.error('image发生error事件，携带值为', e.detail.errMsg)
+    this.setData({
+      loading: false, // 图片加载失败 去除loading
+    });
   },
   // 图片加载成功绑定函数
   fn_img_loadfinish: function (e) {
     let currentUrl = e.currentTarget.dataset.src;
     this.setData({
-      loading: false,
+      loading: false, // 图片加载成功 去除loading
       allImgs: this.data.allImgs.concat(currentUrl),
     });
     console.log('load success: ', currentUrl);
@@ -75,6 +91,16 @@ Page({
         userInfo:userInfo
       })
       console.log(userInfo)
+    })
+
+    // 初始化云平台
+    // const cloud = require('wx-server-sdk')
+    // cloud.init({
+    //   env: cloud.DYNAMIC_CURRENT_ENV
+    // })
+    wx.cloud.init({
+      env: wx.cloud.DYNAMIC_CURRENT_ENV,
+      traceUser: true,
     })
   }
 })

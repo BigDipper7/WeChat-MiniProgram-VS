@@ -12,6 +12,7 @@ Page({
     imgUrl: 'http://tvax4.sinaimg.cn/mw600/5423373agy1ga881jphvij20m80rsk51.jpg',
     imgMode: 'aspectFit',
     imgLazyLoadMode: true,
+    allImgs: [],
   },
   //事件处理函数
   bindViewTap: function() {
@@ -29,10 +30,22 @@ Page({
   fn_img_err: function (e) {
     console.error('image发生error事件，携带值为', e.detail.errMsg)
   },
-  fn_img_loadfinish: function () {
+  fn_img_loadfinish: function (e) {
+    let currentUrl = e.currentTarget.dataset.src;
     this.setData({
-      loading: false
+      loading: false,
+      allImgs: this.data.allImgs.concat(currentUrl),
     });
+    console.log('load success: ', currentUrl);
+  },
+  //预览图片，放大预览
+  fn_img_preview: function(event) {
+    console.log(event.currentTarget.dataset.src)
+    let currentUrl = event.currentTarget.dataset.src
+    wx.previewImage({
+      current: currentUrl, // 当前显示图片的http链接
+      urls: this.data.allImgs, // 需要预览的图片http链接列表
+    })
   },
   onLoad: function () {
     console.log('onLoad...')
